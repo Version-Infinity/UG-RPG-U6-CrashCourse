@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     public int Age = 45;
     public float MoveSpeed = 4.35f;
     public bool IsAlive = true;
+    [SerializeField] private int score = 0;
 
     void Update()
     {
         Rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal"), Rb.linearVelocityY);
     }
+
 }
