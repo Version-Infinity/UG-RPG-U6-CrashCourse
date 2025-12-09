@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 3.5f;
     [SerializeField] private float jumpForce = 12;
     private float xInput;
+    [SerializeField] private bool introJump = true;
 
     [Header("Collision Settings")]
     [SerializeField] private float groundCheckDistance;
@@ -58,6 +60,15 @@ public class Player : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("yVelocity", body.linearVelocityY);
         animator.SetFloat("xVelocity", body.linearVelocityX);
+
+        if (introJump)
+        {
+            float ogJumpForce = jumpForce;
+            jumpForce = 18;
+            Jump(llinearVelocityYOverride: 1);
+            jumpForce = ogJumpForce;
+            introJump = false;
+        }
     }
 
     private void HandleMovement()
@@ -85,10 +96,10 @@ public class Player : MonoBehaviour
     }
 
 
-    private void Jump()
+    private void Jump(float llinearVelocityYOverride = 0)
     {
         if(isGrounded)
-            body.linearVelocityY += jumpForce;
+            body.linearVelocityY = (llinearVelocityYOverride != 0 ? llinearVelocityYOverride : body.linearVelocityY) + jumpForce;
     }
 
     private void HandleCollision()
