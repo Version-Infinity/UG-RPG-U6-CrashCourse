@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float xInput;
-    private bool rotatedLeft = false;
-
-    [SerializeField] private CharacterDirection currentDirection = CharacterDirection.Right;
-    [SerializeField] private float moveSpeed = 3.5f;
-    [SerializeField] private bool instantAcceleration = true;
-    [SerializeField] private float jumpForce = 8;
-
     public Rigidbody2D body;
     public Animator animator;
 
-    private enum CharacterDirection
-    {
-        Left,
-        Right,
-        Up,
-        Down
-    }
+
+    [Header("Orientation Settings")]
+    [SerializeField] private CharacterDirection currentDirection = CharacterDirection.Right;
+    private bool rotatedLeft = false;
+
+    [Header("Movement Settings")]
+    [SerializeField] private bool instantAcceleration = true;
+    [SerializeField] private float moveSpeed = 3.5f;
+    [SerializeField] private float jumpForce = 12;
+    private float xInput;
+
+    [Header("Collision Settings")]
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private LayerMask whatIsGround;
+    private bool isGrounded;
 
     private void Awake()
     {
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        HandleCollision();
         HandleMovement();
         HandleAnimation();
         HandleOrientation();
@@ -83,6 +84,19 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        body.linearVelocityY += jumpForce;
+        if(isGrounded)
+            body.linearVelocityY += jumpForce;
+    }
+
+    private void HandleCollision()
+    {
+        //Cast a ray to check for collision with any object in the layer assinged to whatIsGround
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Draw a design-time only line to visualize the ground detection ray
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance));
     }
 }
