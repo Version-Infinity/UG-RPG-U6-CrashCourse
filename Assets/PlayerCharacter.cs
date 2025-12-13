@@ -147,7 +147,7 @@ namespace Assets
 
         private bool IsinMotion()
         {
-            return body.linearVelocityX + body.linearVelocityY > 0;
+            return body.linearVelocityX + body.linearVelocityY != 0;
         }
 
         private void TryAttack()
