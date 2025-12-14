@@ -10,7 +10,6 @@ namespace Assets
         public Rigidbody2D body;
         public Animator animator;
 
-
         [Header("Orientation Settings")]
         [SerializeField] private CharacterDirection currentDirection = CharacterDirection.Right;
         private bool rotatedLeft = false;
@@ -32,8 +31,9 @@ namespace Assets
         private bool isGrounded;
 
         [Header("Action Settings")]
-        [SerializeField] private bool canAttack = true;
-
+        [SerializeField]
+        private bool canAttack = true;
+        
         private PlayerActionLoop customActionLoop;
 
         private void Awake()
@@ -51,7 +51,7 @@ namespace Assets
             HandleOrientation();
 
             if (introJump)
-                customActionLoop.AppendAction(new PlayerAction(PlayerIntros.JumpIntro, isOneTimeUse: true));
+                customActionLoop.AppendAction(new IntroJumpAction());
         }
 
         private void Update()
@@ -115,13 +115,14 @@ namespace Assets
 
         private void Move()
         {
+
             if (!canmove)
                 return;
 
             //Course directs to use GetAxisRaw for instant input response and GetAxis for smoothed input so we allow both
             xInput = (instantAcceleration ? Input.GetAxisRaw(Constants.HORIZONTAL_INPUT) : Input.GetAxis(Constants.HORIZONTAL_INPUT));
-        
-            if(xInput != 0)
+
+            if (xInput != 0)
                 currentDirection = xInput < 0 ? CharacterDirection.Left : CharacterDirection.Right;
 
             //Course directs to create a new Vector2 each frame, but this is more efficient
@@ -152,7 +153,7 @@ namespace Assets
 
         private void TryAttack()
         {
-            if (isGrounded && !IsinMotion() && canAttack)
+            if (isGrounded && canAttack)
             {
                 animator.SetTrigger("attack");
                 body.linearVelocityX = 0;

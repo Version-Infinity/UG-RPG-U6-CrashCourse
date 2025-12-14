@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets
 {
-    internal class PlayerAction
+    [Serializable]
+    public abstract class PlayerAction
     {
-        private Action<PlayerCharacter> action;
-        private bool isOneTimeUse = false;
-
+        [SerializeField] protected bool isOneTimeUse = false;
+       
+        [SerializeField] private int _schemaVersion = 1;
+        public int SchemaVersion => _schemaVersion;
+ 
         public bool IsOneTimeUse {  get { return isOneTimeUse; } }
 
-        public PlayerAction(Action<PlayerCharacter> action, bool isOneTimeUse = false)
+        public PlayerAction(bool isOneTimeUse = false)
         {
-            this.action = action ?? throw new ArgumentNullException(nameof(action));
             this.isOneTimeUse = isOneTimeUse;
         }
 
-        public void Invoke(PlayerCharacter player) => action(player);
+        public abstract void Invoke(PlayerCharacter player);
+        
     }
 
-    internal class PlayerActionLoop
+    public class PlayerActionLoop
     {
         private PlayerCharacter player;
         private List<PlayerAction> playerActions = new List<PlayerAction>();

@@ -11,16 +11,20 @@ namespace Assets
             player = GetComponentInParent<PlayerCharacter>();
         }
 
-        private void DisableMovementAndJump()
+        private void AttackStarted()
         {
             player.SetMovementAndJump(false);
             player.SetCanAttack(false);
         }
 
-        private void EnableMovementAndJump()
+        private void AttackEnded()
+        {
+            player.SetCanAttack(true);
+        }
+
+        private void EnableMobility()
         {
             player.SetMovementAndJump(true);
-            player.SetCanAttack(true);
         }
 
     }
