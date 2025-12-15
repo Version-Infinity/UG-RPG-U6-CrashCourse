@@ -5,40 +5,34 @@ public class Enemy : MonoBehaviour
 {
     private SpriteRenderer localSpriteRender;
     [SerializeField] private float redColorDuration = .5f;
-    [SerializeField] private float redColorTimer;
+    public float CurrentTimeInGame;
+    public float LastTimeDamaged;
 
     private void Awake()
     {
         localSpriteRender = GetComponent<SpriteRenderer>();
-        UpdateTimer();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Update()
+    {
+        CurrentTimeInGame += Time.time;
+    }
+
     public void TakeDamage()
     {
+        if (Time.time - LastTimeDamaged < redColorDuration)
+            return;
+        LastTimeDamaged = Time.time;
         TurnRed();
+        Invoke(nameof(TurnWhite), redColorDuration);
     }
+
 
     private void TurnRed()
     {
         localSpriteRender.color = Color.red;
     }
-
-    private void Update()
-    {
-        if (localSpriteRender.color != Color.white)
-        {
-            redColorTimer -= Time.deltaTime;
-            if (redColorTimer <= 0)
-            {
-                TurnWhite();
-                UpdateTimer();
-            }
-        }
-    }
-
-    [ContextMenu("Reset Red Timer")]
-    private void UpdateTimer() => redColorTimer = redColorDuration;
 
     private void TurnWhite()
     {
