@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   redColorDuration: 1
+  CurrentTimeInGame: 0
+  LastTimeDamaged: 0
 --- !u!1 &427625686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1032,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1699091220}
-  - component: {fileID: 1699091221}
   - component: {fileID: 1699091223}
+  - component: {fileID: 1699091221}
   - component: {fileID: 1699091224}
   m_Layer: 0
   m_Name: Player
@@ -1103,7 +1105,7 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
-  currentDirection: 0
+  currentDirection: 1
   instantAcceleration: 1
   moveSpeed: 8
   introJump: 0
