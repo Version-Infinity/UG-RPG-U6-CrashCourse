@@ -1,41 +1,40 @@
-using System.Threading;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private SpriteRenderer localSpriteRender;
-    [SerializeField] private float redColorDuration = .5f;
-    public float CurrentTimeInGame;
-    public float LastTimeDamaged;
-
-    private void Awake()
-    {
-        localSpriteRender = GetComponent<SpriteRenderer>();
-    }
-
+    [SerializeField] protected float MoveSpeed = 2.0f;
+    [SerializeField] protected string Name = "Enemy";
+    [SerializeField] protected int Health = 100;
+    
 
     private void Update()
     {
-        CurrentTimeInGame += Time.time;
-    }
-
-    public void TakeDamage()
-    {
-        if (Time.time - LastTimeDamaged < redColorDuration)
-            return;
-        LastTimeDamaged = Time.time;
-        TurnRed();
-        Invoke(nameof(TurnWhite), redColorDuration);
-    }
-
-
-    private void TurnRed()
-    {
-        localSpriteRender.color = Color.red;
-    }
-
-    private void TurnWhite()
-    {
-        localSpriteRender.color = Color.white;
+        MoveAround();
+        Attack();
     }   
+
+    private void MoveAround()
+    {
+    }
+
+    private void Attack()
+    {
+        // Placeholder for attack logic
+        Debug.Log($"{Name} attacks!");
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        Debug.Log($"{Name} took {damage} damage. Remaining health: {Health}");
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+     
+    }
 }

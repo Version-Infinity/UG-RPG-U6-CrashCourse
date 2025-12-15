@@ -14,6 +14,7 @@ namespace Assets
         [SerializeField] private float attackRadius;
         [SerializeField] private Transform attackPoint;
         [SerializeField] private LayerMask whatIsEnemy;
+        [SerializeField] private int attackDamage = 1;
 
         [Header("Orientation Settings")]
         [SerializeField] private CharacterDirection currentDirection = CharacterDirection.Right;
@@ -74,8 +75,8 @@ namespace Assets
             Debug.Log($"Damaging {enemyColliders.Length} enemies");
 
             foreach (var enemyCollider in enemyColliders)
-            { 
-                enemyCollider.GetComponent<Enemy>()?.TakeDamage();
+            {
+                enemyCollider.GetComponent<Enemy>()?.TakeDamage(attackDamage);
             }
         }
 
