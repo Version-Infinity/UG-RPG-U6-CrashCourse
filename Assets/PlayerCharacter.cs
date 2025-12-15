@@ -22,7 +22,7 @@ namespace Assets
         [Header("Movement Settings")]
         [SerializeField] private bool instantAcceleration = true;
         [SerializeField] private float moveSpeed = 3.5f;
-        [SerializeField] private bool introJump = true;
+        [SerializeField] private bool introJump = false;
         private float xInput;
         private bool canmove = true, canjump = true;
         public float jumpForce = 12;
