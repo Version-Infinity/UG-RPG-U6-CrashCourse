@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected float MoveSpeed = 2.0f;
-    [SerializeField] protected string Name = "Enemy";
-    [SerializeField] protected int Health = 100;
+    [SerializeField] protected float moveSpeed = 2.0f;
+    [SerializeField] protected int health = 100;
 
+    public string EnemyName { get; private set; }
 
     protected void Update()
     {
-        MoveAround();
-        Attack();
+        //MoveAround();
+        //Attack();
     }
 
     protected void MoveAround()
@@ -20,14 +20,14 @@ public class Enemy : MonoBehaviour
     protected virtual void Attack()
     {
         // Placeholder for attack logic
-        Debug.Log($"{Name} attacks!");
+        Debug.Log($"{EnemyName} attacks!");
     }
 
     public virtual void TakeDamage(int damage)
     {
-        Health -= damage;
-        Debug.Log($"{Name} took {damage} damage. Remaining health: {Health}");
-        if (Health <= 0)
+        health -= damage;
+        Debug.Log($"{EnemyName} took {damage} damage. Remaining health: {health}");
+        if (health <= 0)
         {
             Die();
         }
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
-        Debug.Log($"{Name} has died.");
+        Debug.Log($"{EnemyName} has died.");
         Destroy(gameObject);
     }
 }

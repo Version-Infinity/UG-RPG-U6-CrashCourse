@@ -10,7 +10,7 @@ public class Enemy_Archer : Enemy
 
     private void ShootArrow()
     {
-        Debug.Log($"{Name} shoots an arrow!");
+        Debug.Log($"{EnemyName} shoots an arrow!");
     }
 
 }

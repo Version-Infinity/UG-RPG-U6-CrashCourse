@@ -10,12 +10,12 @@ public class Enemy_Goblin : Enemy
 
     private void SteelMoney()
     {
-        Debug.Log($"{Name} steals money from the player!");
+        Debug.Log($"{EnemyName} steals money from the player!");
     }
 
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-        Debug.Log($"{Name} the Goblin snarls in pain!");
+        Debug.Log($"{EnemyName} the Goblin snarls in pain!");
     }
 }

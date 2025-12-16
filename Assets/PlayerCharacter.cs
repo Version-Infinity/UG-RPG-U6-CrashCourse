@@ -76,7 +76,9 @@ namespace Assets
 
             foreach (var enemyCollider in enemyColliders)
             {
-                enemyCollider.GetComponent<Enemy>()?.TakeDamage(attackDamage);
+                var enemy = enemyCollider.GetComponent<Enemy>();
+                enemy.TakeDamage(attackDamage);
+                Debug.Log($"Damaged {enemy.EnemyName}!");
             }
         }
 
